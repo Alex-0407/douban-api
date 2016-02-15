@@ -53,13 +53,19 @@ a:link, a:visited, a:hover, a:active {
 }
     .body .search-res {
         width: 1000px;
-        border-bottom: none;
+        min-height: 200px;
         margin: 30px auto 0 auto;
     }
     .body .search-res > .res-group {
         width: 100%;
         padding-left: 120px;
         border-bottom: solid 2px #99E1CD;
+        color: #333;
+    }
+    .body .search-res > .res-group:last-child {
+        width: 100%;
+        padding-left: 120px;
+        border-bottom: none;
         color: #333;
     }
     .body .search-res > .res-group > .res-left {
@@ -104,6 +110,10 @@ a:link, a:visited, a:hover, a:active {
 }
     .footer > img {
         margin: 30px 0 10px 0;
+    }
+    .footer a {
+        text-decoration: underline;
+        color: #fff;
     }
 
 
