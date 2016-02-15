@@ -1,0 +1,50 @@
+* {
+    box-sizing:border-box;
+    -moz-box-sizing:border-box; /* Firefox */
+    -webkit-box-sizing:border-box; /* Safari */
+}
+body {
+    margin: 0;
+}
+body > div {
+    width: 100%;
+}
+.head {
+    background-color: #99E1CD;
+    height: 50px;
+}
+    .head .container {
+
+    }
+.body {
+    padding: 30px 0;
+}
+.footer {
+    background-color: #3FB595;
+}
+
+
+/* Regular UI */
+.container {
+    margin: 0 auto;
+}
+.input-group {
+    height: 50px;
+    width: 150px;
+    border: 2px solid #99E1CD;
+}
+    .input-group * {
+        float: left;
+        height: 100%;
+    }
+    .input-group input {
+        width: 70%;
+        border: none;
+        border-right: 2px solid #99E1CD;
+    }
+    .input-group button {
+        width: 30%;
+        background-color: #99E1CD;
+        border: none;
+        color: #fff;
+    }
