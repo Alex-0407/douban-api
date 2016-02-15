@@ -59,7 +59,7 @@
               authorTmp += item.pubdate.replace(/^([0-9]{4}).*/,"$1");
             }
             addItem(resultJSON.type, item.title, item.id, item.rating.average, item.rating.numRaters,
-             authorTmp, item.summary, JSON.stringify(item.images.small), item.title);
+             authorTmp, item.summary, item.images.small, item.title);
           });
         }
         else {
@@ -74,7 +74,6 @@
   }
 
   function addItem(type, name, id, score, comment, author, summary, smallImg, smallImgAlt) {
-    console.log(typeof (smallImg));
     var typeStore = {
       book: 'fa-book',
       movie: 'fa-file-movie-o',
@@ -147,16 +146,15 @@
 
     // resRight
     var resImg = $("<a></a>"),
-        smallImgDOM = $("<img>");
+        smallImgDOM = new Image();
     resImg.attr({
       href: "#",
       workid: id,
       worktype: type
     });
-    smallImgDOM.attr({
-      src: smallImg,
-      alt: smallImgAlt
-    });
+    smallImgDOM.src = smallImg;
+    smallImgDOM.setAttribute("alt", smallImgAlt);
+    
     resImg.append(smallImgDOM);
     resRight.append(resImg);
 
