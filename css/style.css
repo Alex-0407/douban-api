@@ -99,7 +99,7 @@ a:link, a:visited, a:hover, a:active {
     }
     .body .search-res > .res-group .res-right img {
         width: 66px;
-        margin-top: 20px;
+        margin: 20px 0;
     }
 .footer {
     background-color: #3FB595;
