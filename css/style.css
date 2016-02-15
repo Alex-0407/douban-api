@@ -1,3 +1,4 @@
+/* Global CSS */
 * {
     box-sizing:border-box;
     -moz-box-sizing:border-box; /* Firefox */
@@ -9,19 +10,101 @@ body {
 body > div {
     width: 100%;
 }
+input, p, span {
+    border: none;
+    font-family: "Helvetica Neue", Helvetica, Microsoft Yahei, Hiragino Sans GB, WenQuanYi Micro Hei, sans-serif;
+}
+span, img {
+    vertical-align: middle;
+}
+a:link, a:visited, a:hover, a:active {
+    text-decoration: none;
+    color: #489AC3;
+}
+
+/* Frame CSS */
 .head {
     background-color: #99E1CD;
     height: 50px;
+    text-align: center;
 }
-    .head .container {
-
+    .head > .container {
+        width: 100px;
     }
+        .head > .container > p{
+            height: 50px;
+            margin: 0 5px;
+            line-height: 50px;
+            float: left;
+        }
+        .head > .container > p:before{
+            content: ".";
+            margin-left: -5px;
+            font-size: 10px;
+            visibility: hidden;
+        }
+        .head > .container > p img{
+            *margin-top: expression((50 - this.height )/2);
+            vertical-align: middle;
+        }
+
 .body {
     padding: 30px 0;
 }
+    .body .search-res {
+        width: 1000px;
+        border-bottom: none;
+        margin: 30px auto 0 auto;
+    }
+    .body .search-res > .res-group {
+        width: 100%;
+        padding-left: 120px;
+        border-bottom: solid 2px #99E1CD;
+        color: #333;
+    }
+    .body .search-res > .res-group > .res-left {
+        width: 550px;
+        float: left;
+    }
+    .body .search-res > .res-group .res-right {
+        float: right;
+        margin-right: 120px;
+    }
+    .body .search-res > .res-group i {
+        /* The color of font-awesome which shows the type of works */
+        color: #40b596;
+    }
+    .body .search-res .star-group i {
+        /* The color of font-awesome which shows the score of works */
+        color: #99E1CD;
+    }
+    .body .search-res > .res-group .res-name {
+        margin: 20px 0;
+    }
+    .body .search-res > .res-group .res-comment {
+        margin: 0 5px;
+        font-size: 13px;
+    }
+    .body .search-res > .res-group .res-author {
+        font-size: 14px;
+    }
+    .body .search-res > .res-group .res-intro {
+        font-size: 13px;
+    }
+    .body .search-res > .res-group .res-right img {
+        width: 66px;
+        margin-top: 20px;
+    }
 .footer {
     background-color: #3FB595;
+    height: 250px;
+    width: 100%;
+    text-align: center;
+    color: #fff;
 }
+    .footer > img {
+        margin: 30px 0 10px 0;
+    }
 
 
 /* Regular UI */
@@ -29,22 +112,39 @@ body > div {
     margin: 0 auto;
 }
 .input-group {
+    margin: 0 auto;
     height: 50px;
-    width: 150px;
-    border: 2px solid #99E1CD;
+    width: 40%;
+    position: relative;
 }
-    .input-group * {
-        float: left;
+    .input-group > * {
         height: 100%;
     }
-    .input-group input {
-        width: 70%;
+    .input-group .input-box {
         border: none;
         border-right: 2px solid #99E1CD;
+        position: absolute;
+        left: 0px;
+        right: 100px;
+        top: 0;
+    }
+    .input-group .input-box > input {
+        width: 100%;
+        height: 100%;
+        padding: 0 10px;
+        font-size: 18px;
+        color: #049265;
     }
     .input-group button {
-        width: 30%;
         background-color: #99E1CD;
         border: none;
-        color: #fff;
+        width: 100px;
+        float: right;
     }
+
+.UIborder {
+    border: solid 2px #99E1CD;
+}
+.cb {
+    clear: both;
+}
