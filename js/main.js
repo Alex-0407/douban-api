@@ -144,7 +144,7 @@
                 authorTmp += ' / ';
                 authorTmp += item.pubdate.replace(/^([0-9]{4}).*/,"$1");
               }
-              addItem(typeTmp, item.title, item.id, item.rating.average, item.rating.numRaters,
+              addItem(typeTmp, item.title, item.id, item.rating.average, item.rating.numRaters + '&nbsp;评价',
                authorTmp, (item.summary === '')?'暂无介绍':item.summary, item.images.small, item.title);
             });
             break;
@@ -172,7 +172,7 @@
                 authorTmp += ' / ';
                 authorTmp += item.attrs.pubdate[0].replace(/^([0-9]{4}).*/,"$1");
               }
-              addItem(typeTmp, item.title, item.id, item.rating.average, item.rating.numRaters,
+              addItem(typeTmp, item.title, item.id, item.rating.average, item.rating.numRaters + '&nbsp;评价',
                authorTmp, summaryTmp, item.image, item.alt_title);
             });
             break;
@@ -197,7 +197,7 @@
                 // exist pubdate
                 introTmp.push(item.year);
               }
-              addItem(typeTmp, item.title, item.id, item.rating.average, item.rating.numRaters,
+              addItem(typeTmp, item.title, item.id, item.rating.average, item.collect_count + '&nbsp;点击',
                introTmp.join(' / '), summaryTmp, item.images.small, item.title);
             });
             break;
@@ -285,7 +285,7 @@
       starGroup.append(tmp);
       score2star -=2;
     }
-    resComment.html(comment+'&nbsp;评价');
+    resComment.html(comment);
     resAuthor.html(author);
 
     resInfo.append(starGroup, resComment, resAuthor);
