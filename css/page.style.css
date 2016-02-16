@@ -1,0 +1,62 @@
+.container {
+  width: 1000px;
+  margin: 0 auto;
+}
+.container > .search-res-left {
+  float: left;
+  width: 650px;
+  padding: 30px 60px;
+}
+  .page-title {
+    font-size: 20px;
+    text-align: left;
+  }
+  .page-info-container {
+    width: 100%;
+    text-align: left;
+  }
+    .page-info-container > * {
+      float: left;
+    }
+    .page-info-container .page-img {
+      width: 100px;
+    }
+    .page-info-container > .page-details {
+      width: 200px;
+    }
+      .page-info-container > .page-details ul {
+        margin: 0;
+        padding: 0 10px;
+      }
+      .page-info-container > .page-details li {
+        list-style: none;
+        font-size: 12px;
+      }
+    .page-info-container > .page-score-container {
+      width: 200px;
+      float: right;
+      text-align: right;
+    }
+      .page-info-container > .page-score-container .score-show {
+        margin: 8px;
+        float: right;
+        font-size: 30px;
+      }
+      .page-info-container > .page-score-container .star-container {
+        float: right;
+        text-align: left;
+      }
+        .page-info-container > .page-score-container .star-container .comment-amount {
+          font-size: 13px;
+          margin: 5px 0;
+        }
+.container > .search-res-right {
+  width: 300px;
+  float: right;
+  padding: 15px 20px;
+}
+  .container > .search-res-right .author-intro {
+    font-size: 13px;
+    line-height: 25px;
+    text-align: left;
+  }
