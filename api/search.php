@@ -23,7 +23,7 @@
   }
 
   // make GET-url
-  $searchUrl = "https://api.douban.com/v2/book/search?q=" . $search;
+  $searchUrl = "https://api.douban.com/v2/" . $type . "/search?q=" . $search;
   // from api GET the search res
   $searchRes = file_get_contents($searchUrl);
   $searchResJSON = json_decode($searchRes);
@@ -39,7 +39,19 @@
   $res["status"] = true;
   $res["code"] = 0;
   $res["type"] = $type;
-  $res["data"] = $searchResJSON->books;
+  switch ($type)
+  {
+  case 'book':
+    $res["data"] = $searchResJSON->books;
+    break;
+  case 'music':
+    $res["data"] = $searchResJSON->musics;
+    break;
+  case 'movie':
+    $res["data"] = $searchResJSON->subjects;
+    break;
+
+  }
 
   echo json_encode($res);
  ?>
