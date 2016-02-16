@@ -9,6 +9,7 @@
 }
   .page-title {
     font-size: 20px;
+    margin-top: 0;
     text-align: left;
   }
   .page-info-container {
@@ -55,7 +56,7 @@
   float: right;
   padding: 15px 20px;
 }
-  .container > .search-res-right .author-intro {
+  .container > .search-res-right .intro {
     font-size: 13px;
     line-height: 25px;
     text-align: left;

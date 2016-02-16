@@ -17,6 +17,10 @@
   var isLoading = false,
       isOpen = false;
 
+  window.onload = function() {
+    footerResize();
+  }
+
   inputType.click(function() {
     changeOptionStatus();
   });
@@ -77,6 +81,7 @@
     if (isLoading) return -1;
     if (str == '') {
       $('.res-group').remove();
+      footerResize();
       addNotice(201);
       return -2;
     }
@@ -84,6 +89,7 @@
     var typeTmp = typeOptions.attr('type');
     if (typeTmp === '') {
       $('.res-group').remove();
+      footerResize();
       addNotice(101);
       return -3;
     }
@@ -96,7 +102,7 @@
     removeNotice();
     // remove the history query log
     $('.res-group').remove();
-
+    footerResize();
     var url = 'https://api.douban.com/v2/' + typeTmp + '/search',
         data = {
           q: searchInput.val()
@@ -139,7 +145,7 @@
                 authorTmp += item.pubdate.replace(/^([0-9]{4}).*/,"$1");
               }
               addItem(typeTmp, item.title, item.id, item.rating.average, item.rating.numRaters,
-               authorTmp, item.summary, item.images.small, item.title);
+               authorTmp, (item.summary === '')?'暂无介绍':item.summary, item.images.small, item.title);
             });
             break;
           case 'music':
@@ -195,7 +201,8 @@
                introTmp.join(' / '), summaryTmp, item.images.small, item.title);
             });
             break;
-          }
+        }
+        footerResize();
       },
       error: function() {
         isLoading = false;
@@ -305,5 +312,15 @@
     resRight.append(resImg);
 
     searchRes.append(resGroup);
+  }
+
+  function footerResize() {
+    if ($('body').height() < $(window).height()) {
+      $('.footer').css('margin-top', $(window).height()-$('body').height());
+    }
+    else {
+      if (parseInt($('.footer').css('margin-top')) < ($('body').height() - $(window).height())) $('.footer').css('margin-top', 0);
+      else $('.footer').css('margin-top', parseInt($('.footer').css('margin-top') - ($('body').height() - $(window).height())));
+    }
   }
 })()
