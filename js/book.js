@@ -53,7 +53,8 @@
         score2star -=2;
       }
 
-      $('#author-intro').html(resultJSON.author_intro);
+      if (resultJSON.author_intro !== '') $('#author-intro').html(resultJSON.author_intro);
+      else $('#author-intro').html('暂无简介');
 
       if ($('body').height() < $(window).height()) {
         $('.footer').css('margin-top', $(window).height()-$('body').height());
