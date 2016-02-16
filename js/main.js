@@ -81,6 +81,13 @@
       return -2;
     }
 
+    var typeTmp = typeOptions.attr('type');
+    if (typeTmp === '') {
+      $('.res-group').remove();
+      addNotice(101);
+      return -3;
+    }
+
     isLoading = true;
 
     // add loading icon
@@ -90,109 +97,105 @@
     // remove the history query log
     $('.res-group').remove();
 
-    var url = './api/search.php',
+    var url = 'https://api.douban.com/v2/' + typeTmp + '/search',
         data = {
-          search: searchInput.val(),
-          type: typeOptions.attr('type')
+          q: searchInput.val()
         };
         
     $.ajax({
       url: url,
       data: data,
-      type: 'POST',
-      success: function(result) {
+      type: 'GET',
+      dataType: 'jsonp',
+      success: function(resultJSON) {
         isLoading = false;
+        // query success
         searchLoadingIcon.classList.add('hide');
-        var resultJSON = JSON.parse(result);
-        if (resultJSON.status) {
-          // query success
-          searchLoadingIcon.classList.add('hide');
-          // 3 cases: book, music, movie
-          switch(resultJSON.type) {
-            case 'book':
-              resultJSON.data.forEach(function(item) {
-                var authorTmp = item.author;
-                if (item.translator) {
-                  if (item.translator.length !== 0) {
-                    // exist translator
-                    authorTmp += ' / ';
-                    authorTmp += item.translator.join(' ');
-                  }
-                }
-                if (item.publisher) {
-                  // exist publisher
+        if (resultJSON.count === 0) {
+          // no data find
+          addNotice(202);
+          return -1;
+        }
+        // 3 cases: book, music, movie
+        switch(typeTmp) {
+          case 'book':
+            resultJSON.books.forEach(function(item) {
+              var authorTmp = item.author;
+              if (item.translator) {
+                if (item.translator.length !== 0) {
+                  // exist translator
                   authorTmp += ' / ';
-                  authorTmp += item.publisher;
+                  authorTmp += item.translator.join(' ');
                 }
-                if (item.pubdate) {
-                  // exist pubdate
-                  authorTmp += ' / ';
-                  authorTmp += item.pubdate.replace(/^([0-9]{4}).*/,"$1");
-                }
-                addItem(resultJSON.type, item.title, item.id, item.rating.average, item.rating.numRaters,
-                 authorTmp, item.summary, item.images.small, item.title);
-              });
-              break;
-            case 'music':
-              resultJSON.data.forEach(function(item) {
-                var authorTmp = '',
-                    summaryTmp = '暂无介绍';
-                if (item.author) {
-                  if (item.author.length !== 0) {
-                    // exist translator
-                    var authorTmpArr = new Array();
-                    item.author.forEach(function(authorItem) {
-                      authorTmpArr.push(authorItem.name);
-                    });
-                    authorTmp += authorTmpArr.join(' ');
-                  }
-                }
-                if (item.publisher) {
-                  // exist publisher
-                  authorTmp += ' / ';
-                  authorTmp += item.publisher;
-                }
-                if (item.attrs.pubdate) {
-                  // exist pubdate
-                  authorTmp += ' / ';
-                  authorTmp += item.attrs.pubdate[0].replace(/^([0-9]{4}).*/,"$1");
-                }
-                addItem(resultJSON.type, item.title, item.id, item.rating.average, item.rating.numRaters,
-                 authorTmp, summaryTmp, item.image, item.alt_title);
-              });
-              break;
-            case 'movie':
-              resultJSON.data.forEach(function(item) {
-                var introTmp = new Array();
-                var summaryTmp = '暂无介绍';
-                if (item.original_title) {
-                  introTmp.push("原名: " + item.original_title);
-                }
-                if (item.casts) {
-                  var castsTmp = new Array();
-                  item.casts.forEach(function(castItem) {
-                    castsTmp.push(castItem.name);
+              }
+              if (item.publisher) {
+                // exist publisher
+                authorTmp += ' / ';
+                authorTmp += item.publisher;
+              }
+              if (item.pubdate) {
+                // exist pubdate
+                authorTmp += ' / ';
+                authorTmp += item.pubdate.replace(/^([0-9]{4}).*/,"$1");
+              }
+              addItem(typeTmp, item.title, item.id, item.rating.average, item.rating.numRaters,
+               authorTmp, item.summary, item.images.small, item.title);
+            });
+            break;
+          case 'music':
+            resultJSON.musics.forEach(function(item) {
+              var authorTmp = '',
+                  summaryTmp = '暂无介绍';
+              if (item.author) {
+                if (item.author.length !== 0) {
+                  // exist translator
+                  var authorTmpArr = new Array();
+                  item.author.forEach(function(authorItem) {
+                    authorTmpArr.push(authorItem.name);
                   });
-                  introTmp.push(castsTmp.join(' / '));
+                  authorTmp += authorTmpArr.join(' ');
                 }
-                if (item.directors) {
-                  introTmp.push(item.directors[0].name);
-                }
-                if (item.year) {
-                  // exist pubdate
-                  introTmp.push(item.year);
-                }
-                addItem(resultJSON.type, item.title, item.id, item.rating.average, item.rating.numRaters,
-                 introTmp.join(' / '), summaryTmp, item.images.small, item.title);
-              });
-              break;
+              }
+              if (item.publisher) {
+                // exist publisher
+                authorTmp += ' / ';
+                authorTmp += item.publisher;
+              }
+              if (item.attrs.pubdate) {
+                // exist pubdate
+                authorTmp += ' / ';
+                authorTmp += item.attrs.pubdate[0].replace(/^([0-9]{4}).*/,"$1");
+              }
+              addItem(typeTmp, item.title, item.id, item.rating.average, item.rating.numRaters,
+               authorTmp, summaryTmp, item.image, item.alt_title);
+            });
+            break;
+          case 'movie':
+            resultJSON.subjects.forEach(function(item) {
+              var introTmp = new Array();
+              var summaryTmp = '暂无介绍';
+              if (item.original_title) {
+                introTmp.push("原名: " + item.original_title);
+              }
+              if (item.casts) {
+                var castsTmp = new Array();
+                item.casts.forEach(function(castItem) {
+                  castsTmp.push(castItem.name);
+                });
+                introTmp.push(castsTmp.join(' / '));
+              }
+              if (item.directors) {
+                introTmp.push(item.directors[0].name);
+              }
+              if (item.year) {
+                // exist pubdate
+                introTmp.push(item.year);
+              }
+              addItem(typeTmp, item.title, item.id, item.rating.average, item.rating.numRaters,
+               introTmp.join(' / '), summaryTmp, item.images.small, item.title);
+            });
+            break;
           }
-
-        }
-        else {
-          // query error
-          addNotice(resultJSON.code);
-        }
       },
       error: function() {
         isLoading = false;
@@ -246,7 +249,8 @@
       'work-type': type
     });
     workName.attr({
-      href: '#',
+      href: './' + type + '.html#' + id,
+      target: '_blank',
       workid: id,
       worktype: type
     });
@@ -289,7 +293,8 @@
     var resImg = $('<a></a>'),
         smallImgDOM = new Image();
     resImg.attr({
-      href: '#',
+      href: './' + type + '.html#' + id,
+      target: '_blank',
       workid: id,
       worktype: type
     });

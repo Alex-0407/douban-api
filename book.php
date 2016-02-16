@@ -1,3 +1,13 @@
+<?php 
+  $id = $_GET["id"];
+
+  $infoUrl = "https://api.douban.com/v2/book/" . $id;
+
+  $infoRes = file_get_contents($infoUrl);
+  $infoResJSON = json_decode($infoRes);
+
+
+ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
