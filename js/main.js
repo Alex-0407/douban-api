@@ -130,7 +130,7 @@
                   authorTmp += item.pubdate.replace(/^([0-9]{4}).*/,"$1");
                 }
                 addItem(resultJSON.type, item.title, item.id, item.rating.average, item.rating.numRaters,
-                 authorTmp, item.summary, item.images, item.title);
+                 authorTmp, item.summary, item.images.small, item.title);
               });
               break;
             case 'music':
